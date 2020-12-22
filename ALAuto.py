@@ -215,6 +215,11 @@ try:
         Utils.update_screen()
 
         # temporal solution to event alerts
+        while Utils.find("menu/button_confirm"):
+            Logger.log_msg("Found disconnecting info message.")
+            Utils.touch_randomly(Region(1054, 722, 262, 90))
+            Utils.script_sleep(1)
+            Utils.update_screen()
         if not Utils.find("menu/button_battle"):
             Utils.touch_randomly(Region(54, 57, 67, 67))
             Utils.script_sleep(1)

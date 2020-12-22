@@ -91,7 +91,7 @@ class CommissionModule(object):
         while True:
             Utils.update_screen()
 
-            if Utils.find("commission/alert_perfect"):
+            if Utils.find("commission/alert_perfect", 0.9):
                 Utils.touch_randomly(self.region["tap_to_continue"])
                 self.stats.increment_commissions_received()
                 continue
@@ -99,7 +99,7 @@ class CommissionModule(object):
                 Utils.touch_randomly(self.region["tap_to_continue"])
                 Utils.script_sleep(1)
                 continue
-            if Utils.find("commission/alert_available", 0.9):
+            if Utils.find("commission/alert_available", 0.9) or Utils.find("commission/commissions_allongoing", 0.9):
                 Logger.log_debug("Finished completing commissions.")
                 Utils.script_sleep(0.5)
                 return

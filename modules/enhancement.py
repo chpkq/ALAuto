@@ -70,17 +70,18 @@ class EnhancementModule(object):
                     continue
                 if Utils.find("retirement/empty"):
                     Logger.log_msg("No ships left to enhance.")
-                    Utils.touch_randomly(self.region['button_favorite'])
+                    #Utils.touch_randomly(self.region['button_favorite'])
                     Utils.script_sleep(0.5)
                     if self.called_from_menu:
                         Utils.menu_navigate("menu/button_battle")
                     else:
                         Utils.touch_randomly(self.region['button_go_back'])
                     return self.enhancement_done
-                if Utils.find("enhancement/button_favorite", 0.99):
+                ##if Utils.find("enhancement/button_favorite", 0.99):
+                if self.sorted:
                     self.enhance_ship()
                     Utils.script_sleep(1)
-                    Utils.touch_randomly(self.region['button_favorite'])
+                    #Utils.touch_randomly(self.region['button_favorite'])
                     Utils.script_sleep(0.5)
                     if self.called_from_menu:
                         self.previous_call_place = "menu"
@@ -90,7 +91,7 @@ class EnhancementModule(object):
                         Utils.touch_randomly(self.region['button_go_back'])
                     return self.enhancement_done
                 if Utils.find("menu/dock"):
-                    Utils.touch_randomly(self.region['button_favorite'])
+                    #Utils.touch_randomly(self.region['button_favorite'])
                     Utils.script_sleep(1)
                     self.set_sort()
                     continue
@@ -196,15 +197,15 @@ class EnhancementModule(object):
         #the enhanced alert lasts about three seconds, so there's enough time to catch it
         #even if the scripts sleeps for a little bit. This pause ensures the script does not take
         #the screenshot before the alert is shown.
-        Utils.script_sleep(0.5)
-        Utils.update_screen()
+        Utils.script_sleep(1)
+        #Utils.update_screen()
 
-        if not Utils.find("enhancement/alert_enhanced", 0.85):
-            Logger.log_debug("Didn't find enhanced alert.")
-            return
-        else:
-            Logger.log_debug("Successfully enhanced ship.")
-            self.enhancement_done = True
+        #if not Utils.find("enhancement/alert_enhanced", 0.85):
+        #    Logger.log_debug("Didn't find enhanced alert.")
+        #    return
+        #else:
+        Logger.log_debug("Successfully enhanced ship.")
+        self.enhancement_done = True
 
         while True:
             Utils.update_screen()

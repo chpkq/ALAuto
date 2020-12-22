@@ -16,7 +16,7 @@ class ResearchModule(object):
         self.region = {
             'lab_tab': Region(1004, 1013, 162, 39),
             'exit_button': Region(51, 52, 71, 60),
-            'research_academy': Region(825, 415, 260, 265),
+            'research_academy': Region(450, 420, 280, 230),
             'project_click': Region(865, 155, 180, 100),
             'right_arrow': Region(1855, 525, 30, 30),
             'commence_tab': Region(650, 855, 215, 35),
@@ -87,13 +87,13 @@ class ResearchModule(object):
                 return False
             if self.config.research['WithoutRequirements'] and not Utils.find("research/nothing", 0.99):
                 return False
-            if not self.config.research['AllowConsumingCoins'] and Utils.find("research/coins", 0.99):
+            if not self.config.research['AllowConsumingCoins'] and Utils.find("research/coins", 0.90):
                 return False
-            if not self.config.research['AllowConsumingCubes'] and Utils.find("research/cubes", 0.99):
+            if not self.config.research['AllowConsumingCubes'] and Utils.find("research/cubes", 0.90):
                 return False
             if self.config.research['AwardMustContainPRBlueprint'] and not Utils.find("research/PRBlueprint"):
                 return False
-            if not self.config.research['AllowFreeProjects'] and Utils.find("research/free", 0.99):
+            if not self.config.research['AllowFreeProjects'] and Utils.find("research/free", 0.90):
                 return False
             if not self.config.research['12Hours'] and Utils.find("research/12h", 0.99):
                 return False

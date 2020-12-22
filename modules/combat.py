@@ -45,7 +45,8 @@ class CombatModule(object):
             '10-1': 6, '10-2': 6, '10-3': 6, '10-4': 6,
             '11-1': 6, '11-2': 6, '11-3': 6, '11-4': 6,
             '12-1': 6, '12-2': 6, '12-3': 6, '12-4': 6,
-            '13-1': 6, '13-2': 6, '13-3': 6, '13-4': 7
+            '13-1': 6, '13-2': 6, '13-3': 6, '13-4': 7,
+            'E-SP5': 6, 'E-C2': 4, 'E-D3': 6
         }
         if self.chapter_map not in self.kills_before_boss:
             # check if current map is present in the dictionary and if it isn't,
@@ -61,6 +62,7 @@ class CombatModule(object):
             'disable_subs_hunting_radius': Region(1655, 615, 108, 108),
             'close_strategy_menu': Region(1590, 615, 40, 105),
             'menu_button_battle': Region(1517, 442, 209, 206),
+            'menu_button_campaign': Region(255, 179, 500, 640),
             'map_summary_go': Region(1289, 743, 280, 79),
             'fleet_menu_go': Region(1485, 872, 270, 74),
             'combat_ambush_evade': Region(1493, 682, 208, 56),
@@ -205,11 +207,15 @@ class CombatModule(object):
             Logger.log_debug("Found menu battle button.")
             Utils.touch_randomly(self.region["menu_button_battle"])
             Utils.wait_update_screen(2)
+        if Utils.find("menu/button_campaign"):
+            Logger.log_msg("Found menu campaign button.")
+            Utils.touch_randomly(self.region["menu_button_campaign"])
+            Utils.wait_update_screen(2)
 
         # correct map mode 
         if not self.chapter_map[0].isdigit():
             letter = self.chapter_map[2]
-            event_maps = ['A', 'B', 'S', 'C', 'D']
+            event_maps = ['A', 'B', 'S', 'C', 'D', 'H']
 
             Utils.touch_randomly(self.region['event_button'])
             Utils.wait_update_screen(1)
@@ -224,7 +230,7 @@ class CombatModule(object):
                 Utils.touch_randomly(self.region['normal_mode_button'])
                 Utils.wait_update_screen(1)
         
-        map_region = Utils.find('maps/map_{}'.format(self.chapter_map), 0.99)
+        map_region = Utils.find('maps/map_{}'.format(self.chapter_map), 0.95)
         if map_region != None:
             Logger.log_msg("Found specified map.")
             return map_region
@@ -335,15 +341,30 @@ class CombatModule(object):
                     continue
                 if Utils.find("menu/drop_elite"):
                     Logger.log_msg("Received ELITE ship as drop.")
+                    Logger.log_msg("Received ELITE ship as drop.")
+                    Logger.log_msg("Received ELITE ship as drop.")
+                    Logger.log_msg("Received ELITE ship as drop.")
+                    Logger.log_msg("Received ELITE ship as drop.")
+                    Logger.log_msg("Received ELITE ship as drop.")
                     Utils.touch_randomly(self.region['dismiss_ship_drop'])
                     Utils.script_sleep(2)
                     continue
                 elif Utils.find("menu/drop_rare"):
                     Logger.log_msg("Received new RARE ship as drop.")
+                    Logger.log_msg("Received new RARE ship as drop.")
+                    Logger.log_msg("Received new RARE ship as drop.")
+                    Logger.log_msg("Received new RARE ship as drop.")
+                    Logger.log_msg("Received new RARE ship as drop.")
+                    Logger.log_msg("Received new RARE ship as drop.")
                     Utils.touch_randomly(self.region['dismiss_ship_drop'])
                     Utils.script_sleep(2)
                     continue                
                 elif Utils.find("menu/drop_ssr"):
+                    Logger.log_msg("Received SSR ship as drop.")
+                    Logger.log_msg("Received SSR ship as drop.")
+                    Logger.log_msg("Received SSR ship as drop.")
+                    Logger.log_msg("Received SSR ship as drop.")
+                    Logger.log_msg("Received SSR ship as drop.")
                     Logger.log_msg("Received SSR ship as drop.")
                     Utils.touch_randomly(self.region['dismiss_ship_drop'])
                     Utils.script_sleep(2)
@@ -538,7 +559,7 @@ class CombatModule(object):
         while True:
             Utils.update_screen()
 
-            if Utils.find("combat/menu_formation"):
+            if Utils.find("combat/menu_formation") or Utils.find("combat/menu_event"):
                 Utils.touch_randomly(self.region["menu_nav_back"])
                 Utils.script_sleep(1)
                 continue
@@ -576,7 +597,9 @@ class CombatModule(object):
         #swipe map to fit everything on screen
         swipes = {
             'E-B3': lambda: Utils.swipe(960, 540, 1060, 670, 300),
+            'E-D2': lambda: Utils.swipe(500, 500, 1000, 500, 1000),
             'E-D3': lambda: Utils.swipe(960, 540, 1060, 670, 300),
+            'E-SP5': lambda: Utils.swipe(1000, 500, 1000, 800, 300),
             # needs to be updated
             '12-2': lambda: Utils.swipe(1000, 570, 1300, 540, 300),
             '12-3': lambda: Utils.swipe(1250, 530, 1300, 540, 300),
@@ -628,6 +651,9 @@ class CombatModule(object):
 
                     Utils.touch_randomly(self.region['button_switch_fleet'])
                     Utils.wait_update_screen(2)
+                    if self.chapter_map == 'E-SP4':
+                        swipes.get(s)()
+                        Utils.wait_update_screen(2)
                     boss_region = Utils.find_in_scaling_range("enemy/fleet_boss", similarity=0.9)
 
                     while not boss_region:
@@ -809,7 +835,9 @@ class CombatModule(object):
                     l7 = [x for x in l7 if (not p_region.contains(x))]
                 l7 = [x for x in l7 if (not self.filter_blacklist(x, blacklist))]
                 Logger.log_debug("L7 " +str(l7))
-                self.enemies_list.extend(l7)
+                #self.enemies_list.extend(l7)
+                if len(l7) != 0:
+                    self.enemies_list = l7
 			
             sim -= 0.005
 
