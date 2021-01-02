@@ -207,8 +207,6 @@ class CombatModule(object):
             Logger.log_debug("Found menu battle button.")
             Utils.touch_randomly(self.region["menu_button_battle"])
             Utils.wait_update_screen(2)
-        if Utils.find("menu/button_campaign"):
-            Logger.log_msg("Found menu campaign button.")
             Utils.touch_randomly(self.region["menu_button_campaign"])
             Utils.wait_update_screen(2)
 
@@ -598,7 +596,7 @@ class CombatModule(object):
         swipes = {
             'E-B3': lambda: Utils.swipe(960, 540, 1060, 670, 300),
             'E-D2': lambda: Utils.swipe(500, 500, 1000, 500, 1000),
-            'E-D3': lambda: Utils.swipe(960, 540, 1060, 670, 300),
+            'E-D3': lambda: Utils.swipe(1000, 500, 1000, 1200, 300),
             'E-SP5': lambda: Utils.swipe(1000, 500, 1000, 800, 300),
             # needs to be updated
             '12-2': lambda: Utils.swipe(1000, 570, 1300, 540, 300),
