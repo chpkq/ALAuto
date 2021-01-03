@@ -111,4 +111,5 @@ venv.bak/
 start.bat
 config-local.ini
 ascreencap_local
+config.ini
 a.png
