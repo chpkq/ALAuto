@@ -24,6 +24,9 @@ class ResearchModule(object):
             'confirm_tab': Region(1095, 760, 190, 50)
         }
 
+        if (self.config.assets['server'] == 'TW'):
+            self.region['research_academy'] = Region(825, 415, 260, 265)
+
     def research_logic_wrapper(self):
         Logger.log_msg("Found lab alert.")
         Utils.touch_randomly(self.region["lab_tab"])
