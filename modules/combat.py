@@ -637,7 +637,7 @@ class CombatModule(object):
 
                 if self.config.combat['boss_fleet']:
                     if self.chapter_map == 'E-B3' or self.chapter_map == 'E-D3':
-                        s = 3
+                        s = 0
                     else:
                         s = 0
                     swipes = {
@@ -646,6 +646,8 @@ class CombatModule(object):
                         2: lambda: Utils.swipe(960, 940, 960, 240, 300),
                         3: lambda: Utils.swipe(260, 540, 1560, 540, 300)
                     }
+                    if self.chapter_map == 'E-B3' or self.chapter_map == 'E-D3':
+                        swipes[0] = lambda:Utils.swipe(960, 100, 960, 1500, 300)
 
                     Utils.touch_randomly(self.region['button_switch_fleet'])
                     Utils.wait_update_screen(2)
