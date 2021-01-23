@@ -148,7 +148,7 @@ class CombatModule(object):
                 Logger.log_debug("Found fleet select go button.")
                 Utils.touch_randomly(self.region["fleet_menu_go"])
                 Utils.wait_update_screen(2)
-            if Utils.find("combat/menu_total_rewards.png") or Utils.find('maps/map_{}'.format(self.chapter_map), 0.99):
+            if Utils.find("combat/menu_total_rewards") or Utils.find('maps/map_{}'.format(self.chapter_map), 0.99):
                 Utils.touch_randomly(self.region["leave_auto_search"])
                 self.exit = 1
                 Logger.log_msg("Map cleared by auto searching")
