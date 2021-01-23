@@ -64,6 +64,7 @@ class RetirementModule(object):
             self.last_retire = self.stats.combat_done
             self.called_from_menu = False
             self.retirement_done = False
+            self.sorted = False
             Logger.log_msg("Opening build menu to retire ships.")
 
             while True:

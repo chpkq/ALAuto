@@ -54,6 +54,7 @@ class EnhancementModule(object):
             self.fill_count = 0
             self.called_from_menu = False
             self.enhancement_done = False
+            self.sorted = False
             Logger.log_msg("Opening dock to enhance ship.")
 
             while True:

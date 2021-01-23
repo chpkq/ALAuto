@@ -82,7 +82,8 @@ class CombatModule(object):
             'lock_ship_button': Region(1086, 739, 200, 55),
             'clear_second_fleet': Region(1690, 473, 40, 40),
             'button_switch_fleet': Region(1430, 985, 240, 60),
-            'menu_nav_back': Region(54, 57, 67, 67)
+            'menu_nav_back': Region(54, 57, 67, 67),
+            'leave_auto_search': Region(470, 800, 250, 80)
         }
 
         self.prohibited_region = {
@@ -147,12 +148,17 @@ class CombatModule(object):
                 Logger.log_debug("Found fleet select go button.")
                 Utils.touch_randomly(self.region["fleet_menu_go"])
                 Utils.wait_update_screen(2)
-            if Utils.find("combat/button_retreat"):
-                Logger.log_debug("Found retreat button, starting clear function.")
-                if not self.clear_map():
-                    self.stats.increment_combat_attempted()
-                    break
-                Utils.wait_update_screen()
+            if Utils.find("combat/menu_total_rewards.png") or Utils.find('maps/map_{}'.format(self.chapter_map), 0.99):
+                Utils.touch_randomly(self.region["leave_auto_search"])
+                self.exit = 1
+                Logger.log_msg("Map cleared by auto searching")
+                continue
+            #if Utils.find("combat/button_retreat"):
+                #Logger.log_debug("Found retreat button, starting clear function.")
+                #if not self.clear_map():
+                    #self.stats.increment_combat_attempted()
+                    #break
+                #Utils.wait_update_screen()
             if Utils.find("menu/button_sort"):
                 if self.config.enhancement['enabled'] and not enhancement_failed:
                     if not self.enhancement_module.enhancement_logic_wrapper(forced=True):
