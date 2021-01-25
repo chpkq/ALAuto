@@ -67,6 +67,7 @@ class CombatModule(object):
             'fleet_menu_go': Region(1485, 872, 270, 74),
             'combat_ambush_evade': Region(1493, 682, 208, 56),
             'combat_com_confirm': Region(848, 740, 224, 56),
+            'disconnection_confirm': Region(1060, 730, 250, 70),
             'combat_end_confirm': Region(1520, 963, 216, 58),
             'combat_dismiss_surface_fleet_summary': Region(790, 950, 250, 65),
             'menu_combat_start': Region(1578, 921, 270, 70),
@@ -188,7 +189,8 @@ class CombatModule(object):
                     break
             if Utils.find("menu/button_confirm"):
                 Logger.log_msg("Found commission info message.")
-                Utils.touch_randomly(self.region["combat_com_confirm"])
+                #Utils.touch_randomly(self.region["combat_com_confirm"])
+                Utils.touch_randomly(self.region["disconnection_confirm"])
             
         Utils.script_sleep(1)
         Utils.menu_navigate("menu/button_battle")
