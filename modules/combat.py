@@ -149,17 +149,6 @@ class CombatModule(object):
                 Logger.log_debug("Found fleet select go button.")
                 Utils.touch_randomly(self.region["fleet_menu_go"])
                 Utils.wait_update_screen(2)
-            if Utils.find("combat/menu_total_rewards") or Utils.find('maps/map_{}'.format(self.chapter_map), 0.99):
-                Utils.touch_randomly(self.region["leave_auto_search"])
-                self.exit = 1
-                Logger.log_msg("Map cleared by auto searching")
-                continue
-            #if Utils.find("combat/button_retreat"):
-                #Logger.log_debug("Found retreat button, starting clear function.")
-                #if not self.clear_map():
-                    #self.stats.increment_combat_attempted()
-                    #break
-                #Utils.wait_update_screen()
             if Utils.find("menu/button_sort"):
                 if self.config.enhancement['enabled'] and not enhancement_failed:
                     if not self.enhancement_module.enhancement_logic_wrapper(forced=True):
@@ -189,13 +178,38 @@ class CombatModule(object):
                     break
             if Utils.find("menu/button_confirm"):
                 Logger.log_msg("Found commission info message.")
-                #Utils.touch_randomly(self.region["combat_com_confirm"])
-                Utils.touch_randomly(self.region["disconnection_confirm"])
-            
+                Utils.touch_randomly(self.region["combat_com_confirm"])
+            if self.config.combat['auto_search_mode'] == 1:
+                if Utils.find("combat/auto_search_mode"):
+                    self.clear_map_with_auto_search_mode()
+            if self.config.combat['auto_search_mode'] == 0:
+                if Utils.find("combat/button_retreat"):
+                    Logger.log_debug("Found retreat button, starting clear function.")
+                    if not self.clear_map():
+                        self.stats.increment_combat_attempted()
+                        break
+                    Utils.wait_update_screen()
         Utils.script_sleep(1)
         Utils.menu_navigate("menu/button_battle")
 
         return self.exit
+
+    def clear_map_with_auto_search_mode(self):
+        """ Clears map with auto search mode.
+        """
+        Logger.log_msg("Started map clear with auto search mode.")
+
+        while True:
+            Utils.wait_update_screen()
+
+            if Utils.find("combat/menu_total_rewards") or Utils.find('maps/map_{}'.format(self.chapter_map), 0.99):
+                Utils.touch_randomly(self.region["leave_auto_search"])
+                self.exit = 1
+                Logger.log_msg("Cleared map with auto search mode")
+                continue
+            if Utils.find("menu/button_confirm"):
+                Logger.log_msg("Found disconnection message.")
+                Utils.touch_randomly(self.region["disconnection_confirm"])
 
     def reach_map(self):
         """
