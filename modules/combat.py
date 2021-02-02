@@ -206,7 +206,7 @@ class CombatModule(object):
                 Utils.touch_randomly(self.region["leave_auto_search"])
                 self.exit = 1
                 Logger.log_msg("Cleared map with auto search mode")
-                continue
+                break
             if Utils.find("menu/button_confirm"):
                 Logger.log_msg("Found disconnection message.")
                 Utils.touch_randomly(self.region["disconnection_confirm"])
