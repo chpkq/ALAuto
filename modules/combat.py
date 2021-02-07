@@ -401,7 +401,7 @@ class CombatModule(object):
                     confirmed_fight = True
                     Utils.touch_randomly(self.region["combat_end_confirm"])
                     Utils.wait_update_screen(3)
-                if (not confirmed_fight) and Utils.find("combat/commander"):
+                if not confirmed_fight:
                     items_received = True
                     # prevents fleet with submarines from getting stuck at combat end screen
                     Utils.touch_randomly(self.region["combat_dismiss_surface_fleet_summary"])
