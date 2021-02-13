@@ -344,7 +344,7 @@ class CombatModule(object):
                 Utils.script_sleep(2.5)
                 continue
             if not items_received:
-                if Utils.find("combat/menu_touch2continue"):
+                if Utils.find("combat/menu_touch2continue") or Utils.find("combat/menu_continue") or Utils.find("combat/menu_vitory"):
                     Logger.log_debug("Combat ended: tap to continue")
                     Utils.touch_randomly(self.region['tap_to_continue'])
                     in_battle = False
@@ -450,6 +450,10 @@ class CombatModule(object):
                     Logger.log_debug("Fleet was defeated.")
                     defeat = True
                     Utils.script_sleep(3)
+                if confirmed_fight and Utils.find("combat/button_confirm"):
+                    # prevent screen stuck on combat confirm
+                    Utils.touch_randomly(self.region["combat_end_confirm"])
+                    Utils.wait_update_screen(3)
                 if boss and confirmed_fight:
                     if not defeat:
                         return True

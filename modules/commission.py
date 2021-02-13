@@ -74,7 +74,10 @@ class CommissionModule(object):
 
                 if self.urgent_handler():
                     self.daily_handler()
-                Utils.touch_randomly(self.region["button_back"])
+
+                while Utils.find("menu/commission"):
+                    Utils.touch_randomly(self.region["button_back"])
+                    Utils.wait_update_screen(1)
                 continue
             if Utils.find("commission/button_go") and (lambda x:x > 332 and x < 511)(Utils.find("commission/button_go").y):
                 Logger.log_msg("All commissions are running.")
@@ -170,6 +173,8 @@ class CommissionModule(object):
                 tapped_recommend = True
                 self.commission_start_attempts += 1
                 continue
+            #prevent screen stuck on urgent commission page
+            self.commission_start_attempts += 1
 
         Utils.wait_update_screen(1)
         return not (Utils.find("commission/commissions_full") or self.commission_start_attempts > 10)
