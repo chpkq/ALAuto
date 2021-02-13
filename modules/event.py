@@ -25,6 +25,7 @@ class EventModule(object):
             'close_info_dialog': Region(1319, 217, 47, 47),
             'combat_dismiss_surface_fleet_summary': Region(790, 950, 250, 65),
             'combat_button_no': Region(689, 757, 93, 46),
+            'combat_button_yes': Region(1100, 757, 93, 46),
 
             'crosswave_ex': Region(1718, 246, 75, 75),
             'crosswave_hard': Region(1650, 449, 75, 75),
@@ -125,8 +126,8 @@ class EventModule(object):
         while True:
             Utils.wait_update_screen(1)
 
-            if Utils.find("event/button_no"):
-                Utils.touch_randomly(self.region['combat_button_no'])
+            if Utils.find("event/button_yes"):
+                Utils.touch_randomly(self.region['combat_button_yes'])
                 Utils.script_sleep(1)
                 continue
             if Utils.find("combat/combat_pause", 0.7):
