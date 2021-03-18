@@ -597,7 +597,8 @@ class CombatModule(object):
                 # confirm either the retreat or an urgent commission alert
                 Utils.script_sleep(1)
                 continue
-            if Utils.find("menu/attack"):
+            if Utils.find("menu/attack") or (self.config.assets['server'] == 'CN' and Utils.find("menu/attack_ui_bug")):
+                # remove after this ui bug been fixed
                 return
 
     def clear_map(self):
