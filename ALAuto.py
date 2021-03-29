@@ -238,6 +238,12 @@ try:
         if script.should_sortie():
             script.run_sortie_cycle()
             script.print_cycle_stats()
+            s = config.combat['sleep_time_seconds']
+            if s != 0:
+                Logger.log_msg("Sleep for {} seconds after combat".format(s))
+                Utils.script_sleep(s, 0)
+                Logger.log_msg("Sleep ended")
+                # ensure 12 minites per combat
         else:
             Logger.log_msg("Nothing to do, will check again in a few minutes.")
             Utils.script_sleep(300)
