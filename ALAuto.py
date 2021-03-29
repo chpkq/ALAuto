@@ -67,8 +67,10 @@ class ALAuto(object):
 
     def run_update_check(self):
         if self.modules['updates']:
-            if self.modules['updates'].checkUpdate():
-                Logger.log_warning("A new release is available, please check the github.")
+            #remove update checking due to dns error
+            Logger.log_debug("do nothing")
+            #if self.modules['updates'].checkUpdate():
+                #Logger.log_warning("A new release is available, please check the github.")
 
     def should_sortie(self):
         """Method to check wether bot should combat or not.
