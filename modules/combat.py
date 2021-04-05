@@ -84,7 +84,9 @@ class CombatModule(object):
             'clear_second_fleet': Region(1690, 473, 40, 40),
             'button_switch_fleet': Region(1430, 985, 240, 60),
             'menu_nav_back': Region(54, 57, 67, 67),
-            'leave_auto_search': Region(470, 800, 250, 80)
+            'leave_auto_search': Region(470, 800, 250, 80),
+            'clear_submarine_fleet_button': Region(1640, 684, 80, 80),
+            'clear_submarine_fleet_confirm_button': Region(1250, 750, 50, 50),
         }
 
         self.prohibited_region = {
@@ -147,6 +149,14 @@ class CombatModule(object):
                     Utils.touch_randomly(self.region["clear_second_fleet"])
             if Utils.find("combat/menu_select_fleet"):
                 Logger.log_debug("Found fleet select go button.")
+
+                if not self.config.combat['submarine_fleet']:
+                    Logger.log_debug("Remove submarine fleet")
+                    Utils.touch_randomly(self.region["clear_submarine_fleet_button"])
+                    Utils.script_sleep(1)
+                    Utils.touch_randomly(self.region["clear_submarine_fleet_confirm_button"])
+                Utils.script_sleep(1)
+
                 Utils.touch_randomly(self.region["fleet_menu_go"])
                 Utils.wait_update_screen(2)
             if Utils.find("menu/button_sort"):
