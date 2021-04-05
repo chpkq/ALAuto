@@ -137,6 +137,10 @@ class CombatModule(object):
             if self.exit > 2:
                 self.stats.increment_combat_attempted()
                 break
+            if Utils.find("combat/menu_select_fleet"):
+                Logger.log_debug("Found fleet select go button.")
+                Utils.touch_randomly(self.region["fleet_menu_go"])
+                Utils.wait_update_screen(2)
             if Utils.find("combat/button_go"):
                 Logger.log_debug("Found map summary go button.")
                 Utils.touch_randomly(self.region["map_summary_go"])
@@ -145,10 +149,6 @@ class CombatModule(object):
                 if not self.chapter_map[0].isdigit() and string.ascii_uppercase.index(self.chapter_map[2:3]) < 1 or self.chapter_map[0].isdigit():
                     Logger.log_msg("Removing second fleet from fleet selection.")
                     Utils.touch_randomly(self.region["clear_second_fleet"])
-            if Utils.find("combat/menu_select_fleet"):
-                Logger.log_debug("Found fleet select go button.")
-                Utils.touch_randomly(self.region["fleet_menu_go"])
-                Utils.wait_update_screen(2)
             if Utils.find("menu/button_sort"):
                 if self.config.enhancement['enabled'] and not enhancement_failed:
                     if not self.enhancement_module.enhancement_logic_wrapper(forced=True):
