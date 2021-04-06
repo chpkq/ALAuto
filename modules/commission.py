@@ -102,6 +102,9 @@ class CommissionModule(object):
                 Utils.touch_randomly(self.region["tap_to_continue"])
                 Utils.script_sleep(1)
                 continue
+            if Utils.find("menu/drop_common") or Utils.find("menu/drop_rare") or Utils.find("menu/drop_elite") or Utils.find("menu/drop_ssr"):
+                Utils.touch_randomly(self.region['dismiss_ship_drop'])
+                Utils.script_sleep(2)
             if Utils.find("commission/alert_available", 0.9) or Utils.find("commission/commissions_allongoing", 0.9):
                 Logger.log_debug("Finished completing commissions.")
                 Utils.script_sleep(0.5)
