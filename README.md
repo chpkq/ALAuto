@@ -5,7 +5,7 @@ Automates Combat, Commissions, Missions, Enhancement, Retiring, Skill Levelling,
 **This bot was made for EN server. However, it's now possible to use it on JP thanks to [@phantasmalmira](https://github.com/phantasmalmira) ([#59](https://github.com/Egoistically/ALAuto/pull/59)). Other servers won't work with current assets.**
 
 ## Requirements on Windows
-* Python 3.7.X installed and added to PATH.
+* Python 3.8.X installed and added to PATH.
 * Latest [ADB](https://developer.android.com/studio/releases/platform-tools) added to PATH.
 * ADB debugging enabled emulator with **1920x1080 resolution** and **Android 5 or newer**.
 
