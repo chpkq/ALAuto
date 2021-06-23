@@ -33,7 +33,8 @@ class CommissionModule(object):
             'button_back': Region(48, 43, 76, 76),
             'tap_to_continue': Region(661, 840, 598, 203),
             'dismiss_side_tab': Region(1020, 148, 370, 784),
-            'dismiss_message': Region(688, 11, 538, 55)
+            'dismiss_message': Region(688, 11, 538, 55),
+            'dismiss_ship_drop': Region(1228, 103, 692, 735)
         }
 
     def commission_logic_wrapper(self):

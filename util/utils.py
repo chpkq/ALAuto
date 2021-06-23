@@ -440,6 +440,9 @@ class Utils(object):
             if image == "menu/button_battle":
                 cls.touch_randomly(Region(54, 57, 67, 67))
                 cls.wait_update_screen(1)
+            if Utils.find("menu/alert_announcement"):
+                cls.touch_randomly(Region(1750, 80, 80, 50))
+                cls.wait_update_screen(1)
 
         return
 

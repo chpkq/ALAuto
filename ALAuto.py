@@ -225,6 +225,9 @@ try:
         if not Utils.find("menu/button_battle"):
             Utils.touch_randomly(Region(54, 57, 67, 67))
             Utils.script_sleep(1)
+            if Utils.find("menu/alert_announcement"):
+                Utils.touch_randomly(Region(1750, 80, 80, 50))
+                Utils.wait_update_screen(1)
             continue
         if Utils.find("commission/alert_completed"):
             script.run_commission_cycle()

@@ -155,8 +155,10 @@ class EnhancementModule(object):
         """
 
         #selects ship
-        Utils.touch_randomly(self.region['first_favorite_ship'])
-        Utils.script_sleep(1)
+        # fix bug that stuck on dock screen
+        while Utils.find("menu/dock"):
+            Utils.touch_randomly(self.region['first_favorite_ship'])
+            Utils.wait_update_screen(1)
 
         while True:
             Utils.update_screen()

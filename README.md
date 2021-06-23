@@ -1,5 +1,5 @@
 # ALAuto
-Updated and semi-rewritten version of [azurlane-auto](https://github.com/perryhuynh/azurlane-auto).  
+Updated and semi-rewritten version of [Egoistically/ALAuto](https://github.com/Egoistically/ALAuto).  
 Automates Combat, Commissions, Missions, Enhancement, Retiring, Skill Levelling, Dorm Refilling and Dorm Cleaning.
 
 **This bot was made for EN server. However, it's now possible to use it on JP thanks to [@phantasmalmira](https://github.com/phantasmalmira) ([#59](https://github.com/Egoistically/ALAuto/pull/59)). Other servers won't work with current assets.**
@@ -28,3 +28,7 @@ Check the [Wiki](https://github.com/Egoistically/ALAuto/wiki/Config.ini-and-Modu
 
 This was made for my own usage, it is far from good and I'm very aware of it. I am posting this because it might be useful to someone, that's all.  
 If you'd like to contribute in any way make sure to open a [pull request](https://github.com/Egoistically/ALAuto/pulls) or an [issue](https://github.com/Egoistically/ALAuto/issues). If you'd like to contact us you can do so through our [Discord](https://discord.gg/vCFxDen).
+
+Use below commands to caputure screenshots  
+adb -s 127.0.0.1:62001 shell screencap /sdcard/a.png  
+adb -s 127.0.0.1:62001 pull /sdcard/a.png a.png  
