@@ -230,6 +230,8 @@ class RetirementModule(object):
                 Utils.touch_randomly(self.region['disassemble_button'])
                 Utils.script_sleep(1)
                 continue
+            if Utils.find("retirement/selected_none", similarity=0.9):
+                return
 
     @property
     def need_to_retire(self):

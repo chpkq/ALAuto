@@ -84,7 +84,7 @@ class CombatModule(object):
             'clear_second_fleet': Region(1690, 473, 40, 40),
             'button_switch_fleet': Region(1430, 985, 240, 60),
             'menu_nav_back': Region(54, 57, 67, 67),
-            'leave_auto_search': Region(910, 580, 150, 50),
+            'leave_auto_search': Region(580, 910, 150, 50),
             'clear_submarine_fleet_button': Region(1680, 690, 50, 50),
             'clear_submarine_fleet_confirm_button': Region(1250, 750, 50, 50),
         }

@@ -11,6 +11,7 @@ class EventModule(object):
             config (Config): ALAuto Config instance
             stats (Stats): ALAuto stats instance
         """
+        self.ticket_used = 0
         self.config = config
         self.stats = stats
         self.last_enhance = 0
@@ -107,7 +108,7 @@ class EventModule(object):
         while True:
             Utils.wait_update_screen(1)
 
-            if Utils.find("combat/menu_select_fleet"):
+            if Utils.find("event/event_menu_select_fleet"):
                 Logger.log_debug("Found event fleet go button.")
                 Utils.touch_randomly(self.region['menu_fleet_go'])
                 continue
@@ -126,7 +127,9 @@ class EventModule(object):
         while True:
             Utils.wait_update_screen(1)
 
-            if Utils.find("event/button_yes"):
+            if Utils.find(f"event/cost"):
+                self.ticket_used +=1
+                Logger.log_msg("Used ticket: " + str(self.ticket_used))
                 Utils.touch_randomly(self.region['combat_button_yes'])
                 Utils.script_sleep(1)
                 continue
@@ -141,7 +144,7 @@ class EventModule(object):
                 Utils.touch_randomly(self.region['tap_to_continue'])
                 Utils.script_sleep(1)
                 continue
-            if Utils.find("combat/button_confirm"):
+            if Utils.find("event/button_confirm"):
                 Logger.log_msg("Combat ended.")
                 Utils.touch_randomly(self.region['combat_end_confirm'])
                 self.stats.increment_combat_done()
