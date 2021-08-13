@@ -73,22 +73,22 @@ class RetirementModule(object):
                 if Utils.find("menu/button_sort"):
                     # Tap menu retire button
                     Utils.touch_randomly(self.region['combat_sort_button'])
-                    Utils.script_sleep(1)
+                    Utils.script_sleep(2)
                     continue
                 # In case function is called from menu
                 if Utils.find("menu/button_battle"):
                     self.called_from_menu = True
                     Utils.touch_randomly(self.region['build_menu'])
-                    Utils.script_sleep(1)
+                    Utils.script_sleep(2)
                     continue
                 if Utils.find("menu/build"):
                     if Utils.find("event/build_limited"):
                         Utils.touch_randomly(self.region['retire_tab_2'])
                     else:
                         Utils.touch_randomly(self.region['retire_tab_1'])
-                    Utils.script_sleep(1)
+                    Utils.script_sleep(2)
                     continue
-                if Utils.find("retirement/selected_none", similarity=0.9):
+                if True or Utils.find("retirement/selected_none", similarity=0.9):
                     self.set_sort()
                     self.retire_ships()
                     if self.called_from_menu:
