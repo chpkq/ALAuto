@@ -174,7 +174,7 @@ class RetirementModule(object):
                     Logger.log_debug("Retirement: Sorting options confirmed")
                     self.sorted = True
             Utils.touch_randomly(self.region['confirm_filter_button'])
-            Utils.script_sleep(1)
+            Utils.script_sleep(2)
             
     def retire_ships(self):
         while True:
@@ -188,7 +188,7 @@ class RetirementModule(object):
                 self.handle_retirement()
                 self.retirement_done = True
                 continue
-            if Utils.find("retirement/selected_none", similarity=0.9):
+            if True or Utils.find("retirement/selected_none", similarity=0.9):
                 self.select_ships()
                 continue
 
@@ -230,7 +230,7 @@ class RetirementModule(object):
                 Utils.touch_randomly(self.region['disassemble_button'])
                 Utils.script_sleep(1)
                 continue
-            if Utils.find("retirement/selected_none", similarity=0.9):
+            if True or Utils.find("retirement/selected_none", similarity=0.9):
                 return
 
     @property
