@@ -18,6 +18,7 @@ class RetirementModule(object):
         self.combat_sorted = False
         self.called_from_menu = False
         self.retirement_done = False
+        self.force_quit = False
         self.previous_call_place = "combat"
         self.last_retire = 0
         self.region = {
@@ -28,11 +29,11 @@ class RetirementModule(object):
             'retire_tab_2': Region(30, 816, 94, 94),
             'menu_nav_back': Region(54, 57, 67, 67),
             'sort_filters_button': Region(1655, 14, 130, 51),
-            'rarity_all_ship_filter': Region(435, 668, 190, 45),
-            'common_ship_filter': Region(671, 668, 190, 45),
-            'rare_ship_filter': Region(907, 668, 190, 45),
-            'extra_all_ship_filter': Region(435, 779, 190, 45),
-            'confirm_filter_button': Region(1090, 933, 220, 60),
+            'rarity_all_ship_filter': Region(435, 600, 190, 45),
+            'extra_all_ship_filter': Region(435, 710, 190, 45),
+            'common_ship_filter': Region(671, 600, 190, 45),
+            'rare_ship_filter': Region(907, 600, 190, 45),
+            'confirm_filter_button': Region(1090, 945, 220, 60),
             #Region(209 + (i * 248), 238, 70, 72)
             'select_ship_0': Region(209, 238, 70, 72),
             'select_ship_1': Region(457, 238, 70, 72),
@@ -49,6 +50,12 @@ class RetirementModule(object):
             'close_batch_retire': Region(1090, 930, 240, 75),
             'button_batch_retire': Region(960, 965, 255, 80)
         }
+        if (self.config.assets['server'] == 'TW'):
+            self.region['rarity_all_ship_filter'] = Region(435, 668, 190, 45)
+            self.region['extra_all_ship_filter'] = Region(435, 779, 190, 45)
+            self.region['common_ship_filter'] = Region(671, 668, 190, 45)
+            self.region['rare_ship_filter'] = Region(907, 668, 190, 45)
+            self.region['confirm_filter_button'] = Region(1090, 933, 220, 60)
 
     def retirement_logic_wrapper(self, forced=False):
         """Method that fires off the necessary child methods that encapsulates
@@ -65,11 +72,20 @@ class RetirementModule(object):
             self.called_from_menu = False
             self.retirement_done = False
             self.sorted = False
+            self.force_quit = False
             Logger.log_msg("Opening build menu to retire ships.")
 
             while True:
                 Utils.update_screen()
 
+                if self.force_quit:
+                    if self.called_from_menu:
+                        self.previous_call_place = "menu"
+                        Utils.menu_navigate("menu/button_battle")
+                    else:
+                        self.previous_call_place = "combat"
+                        Utils.touch_randomly(self.region['menu_nav_back'])
+                    return self.retirement_done
                 if Utils.find("menu/button_sort"):
                     # Tap menu retire button
                     Utils.touch_randomly(self.region['combat_sort_button'])
@@ -134,7 +150,7 @@ class RetirementModule(object):
         while not self.sorted:
             Logger.log_debug("Retirement: Opening sorting menu.")
             Utils.touch_randomly(self.region['sort_filters_button'])
-            Utils.script_sleep(0.5)
+            Utils.script_sleep(1)
             # Touch the All button to clear any current filter
             Utils.touch_randomly(self.region['rarity_all_ship_filter'])
             Utils.script_sleep(0.5)
@@ -149,13 +165,14 @@ class RetirementModule(object):
             
             # check if correct options are enabled
             # get the regions of enabled options
-            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra")
+            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra", tw_server=self.config.assets['server'] == 'TW')
             if len(options) == 0:
                 # if the list is empty it probably means that there was an ui update
                 # pausing and requesting for user confirmation
-                Logger.log_error("No options detected. User's input required.")
-                input("Manually fix sorting options. Press Enter to continue...")
+                #Logger.log_error("No options detected. User's input required.")
+                #input("Manually fix sorting options. Press Enter to continue...")
                 self.sorted = True
+                self.force_quit = True
             else:
                 retirements = (self.config.retirement['commons'], self.config.retirement['rares'], True)
                 checks = [False, False, False]

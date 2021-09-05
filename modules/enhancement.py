@@ -16,6 +16,7 @@ class EnhancementModule(object):
         self.sorted = False
         self.called_from_menu = False
         self.enhancement_done = False
+        self.force_quit = False
         self.previous_call_place = "combat"
         self.fill_count = 0
         self.last_enhance = 0
@@ -25,10 +26,10 @@ class EnhancementModule(object):
             'button_go_back': Region(54, 57, 67, 67),
             'dock_tab': Region(297, 1015, 155, 40),
             'sort_filters_button': Region(1655, 14, 130, 51),
-            'rarity_all_ship_filter': Region(435, 668, 190, 45),
-            'extra_all_ship_filter': Region(435, 779, 190, 45),
-            'extra_enhanceable_ship_filter': Region(1143, 779, 190, 45),
-            'confirm_filter_button': Region(1090, 933, 220, 60),
+            'rarity_all_ship_filter': Region(435, 600, 190, 45),
+            'extra_all_ship_filter': Region(435, 710, 190, 45),
+            'extra_enhanceable_ship_filter': Region(1143, 710, 190, 45),
+            'confirm_filter_button': Region(1090, 945, 220, 60),
             'first_favorite_ship': Region(209, 209, 80, 120),
             'fill_button': Region(1467, 917, 140, 38),
             'enhance_tab_normal_ship': Region(31, 188, 91, 91),
@@ -38,6 +39,11 @@ class EnhancementModule(object):
             'disassemble_button': Region(1099, 827, 225, 58),
             'tap_to_continue': Region(661, 840, 598, 203)
         }
+        if (self.config.assets['server'] == 'TW'):
+            self.region['rarity_all_ship_filter'] = Region(435, 668, 190, 45)
+            self.region['extra_all_ship_filter'] = Region(435, 779, 190, 45)
+            self.region['extra_enhanceable_ship_filter'] = Region(1143, 779, 190, 45)
+            self.region['confirm_filter_button'] = Region(1090, 933, 220, 60)
 
     def enhancement_logic_wrapper(self, forced=False):
         """Method that fires off the necessary child methods that encapsulates
@@ -55,10 +61,18 @@ class EnhancementModule(object):
             self.called_from_menu = False
             self.enhancement_done = False
             self.sorted = False
+            self.force_quit = False
             Logger.log_msg("Opening dock to enhance ship.")
 
             while True:
                 Utils.update_screen()
+
+                if self.force_quit:
+                    if self.called_from_menu:
+                        Utils.menu_navigate("menu/button_battle")
+                    else:
+                        Utils.touch_randomly(self.region['button_go_back'])
+                    return self.enhancement_done
                 if Utils.find("menu/button_sort"):
                     # Tap enhace button from dock is full alert
                     Utils.touch_randomly(self.region['combat_enhance_button'])
@@ -114,7 +128,7 @@ class EnhancementModule(object):
         while not self.sorted:
             Logger.log_debug("Enhancement: Opening sorting menu.")
             Utils.touch_randomly(self.region['sort_filters_button'])
-            Utils.script_sleep(0.5)
+            Utils.script_sleep(2)
             # Touch the All button to clear any current filter
             Utils.touch_randomly(self.region['rarity_all_ship_filter'])
             Utils.script_sleep(0.5)
@@ -126,13 +140,14 @@ class EnhancementModule(object):
             
             # check if correct options are enabled
             # get the regions of enabled options
-            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra")
+            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra", tw_server=self.config.assets['server'] == 'TW')
             if len(options) == 0:
                 # if the list is empty it probably means that there was an ui update
                 # pausing and requesting for user confirmation
-                Logger.log_error("No options detected. User's input required.")
-                input("Manually fix sorting options. Press Enter to continue...")
+                #Logger.log_error("No options detected. User's input required.")
+                #input("Manually fix sorting options. Press Enter to continue...")
                 self.sorted = True
+                self.force_quit = True
             else:
                 checks = [False, False]
                 for option in options:
