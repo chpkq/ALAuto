@@ -39,11 +39,6 @@ class EnhancementModule(object):
             'disassemble_button': Region(1099, 827, 225, 58),
             'tap_to_continue': Region(661, 840, 598, 203)
         }
-        if (self.config.assets['server'] == 'TW'):
-            self.region['rarity_all_ship_filter'] = Region(435, 668, 190, 45)
-            self.region['extra_all_ship_filter'] = Region(435, 779, 190, 45)
-            self.region['extra_enhanceable_ship_filter'] = Region(1143, 779, 190, 45)
-            self.region['confirm_filter_button'] = Region(1090, 933, 220, 60)
 
     def enhancement_logic_wrapper(self, forced=False):
         """Method that fires off the necessary child methods that encapsulates
@@ -140,7 +135,7 @@ class EnhancementModule(object):
             
             # check if correct options are enabled
             # get the regions of enabled options
-            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra", tw_server=self.config.assets['server'] == 'TW')
+            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra")
             if len(options) == 0:
                 # if the list is empty it probably means that there was an ui update
                 # pausing and requesting for user confirmation

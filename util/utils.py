@@ -287,7 +287,7 @@ class Utils(object):
         return thresh
 
     @classmethod
-    def get_enabled_ship_filters(cls, filter_categories="rarity", tw_server=True):
+    def get_enabled_ship_filters(cls, filter_categories="rarity"):
         """Method which returns the regions of all the options enabled for the current sorting filter.
 
         Args:
@@ -302,15 +302,9 @@ class Utils(object):
         # mask area of no interest, effectively creating a roi
         roi = numpy.full((image.shape[0], image.shape[1]), 0, dtype=numpy.uint8)
         if "rarity" in categories:
-            if tw_server:
-                cv2.rectangle(roi, (410, 647), (1835, 737), color=(255, 255, 255), thickness=-1)
-            else:
-                cv2.rectangle(roi, (410, 584), (1835, 675), color=(255, 255, 255), thickness=-1)
+            cv2.rectangle(roi, (410, 584), (1835, 675), color=(255, 255, 255), thickness=-1)
         if "extra" in categories:
-            if tw_server:
-                cv2.rectangle(roi, (410, 758), (1835, 847), color=(255, 255, 255), thickness=-1)
-            else:
-                cv2.rectangle(roi, (410, 694), (1835, 875), color=(255, 255, 255), thickness=-1)
+            cv2.rectangle(roi, (410, 694), (1835, 875), color=(255, 255, 255), thickness=-1)
 
         # preparing the ends of the interval of blue colors allowed, BGR format
         lower_blue = numpy.array([132, 97, 66], dtype=numpy.uint8)

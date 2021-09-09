@@ -50,12 +50,6 @@ class RetirementModule(object):
             'close_batch_retire': Region(1090, 930, 240, 75),
             'button_batch_retire': Region(960, 965, 255, 80)
         }
-        if (self.config.assets['server'] == 'TW'):
-            self.region['rarity_all_ship_filter'] = Region(435, 668, 190, 45)
-            self.region['extra_all_ship_filter'] = Region(435, 779, 190, 45)
-            self.region['common_ship_filter'] = Region(671, 668, 190, 45)
-            self.region['rare_ship_filter'] = Region(907, 668, 190, 45)
-            self.region['confirm_filter_button'] = Region(1090, 933, 220, 60)
 
     def retirement_logic_wrapper(self, forced=False):
         """Method that fires off the necessary child methods that encapsulates
@@ -165,7 +159,7 @@ class RetirementModule(object):
             
             # check if correct options are enabled
             # get the regions of enabled options
-            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra", tw_server=self.config.assets['server'] == 'TW')
+            options = Utils.get_enabled_ship_filters(filter_categories="rarity;extra")
             if len(options) == 0:
                 # if the list is empty it probably means that there was an ui update
                 # pausing and requesting for user confirmation
