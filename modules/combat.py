@@ -245,13 +245,13 @@ class CombatModule(object):
         # correct map mode 
         if not self.chapter_map[0].isdigit():
             letter = self.chapter_map[2]
-            event_maps = ['A', 'B', 'S', 'C', 'D', 'H', 'T']
+            event_maps = ['A', 'B', 'T', 'S', 'C', 'D', 'H']
 
             Utils.touch_randomly(self.region['event_button'])
             Utils.wait_update_screen(1)
 
-            if event_maps.index(letter) < 3 and Utils.find("menu/button_normal_mode", 0.8) or \
-               event_maps.index(letter) > 2 and not Utils.find("menu/button_normal_mode", 0.8):
+            if event_maps.index(letter) < 4 and Utils.find("menu/button_normal_mode", 0.8) or \
+               event_maps.index(letter) > 3 and not Utils.find("menu/button_normal_mode", 0.8):
                 Utils.touch_randomly(self.region['normal_mode_button'])
                 Utils.wait_update_screen(1)
         else:
