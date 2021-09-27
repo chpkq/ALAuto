@@ -245,7 +245,7 @@ class CombatModule(object):
         # correct map mode 
         if not self.chapter_map[0].isdigit():
             letter = self.chapter_map[2]
-            event_maps = ['A', 'B', 'S', 'C', 'D', 'H']
+            event_maps = ['A', 'B', 'S', 'C', 'D', 'H', 'T']
 
             Utils.touch_randomly(self.region['event_button'])
             Utils.wait_update_screen(1)
