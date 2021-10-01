@@ -20,8 +20,9 @@ class CommissionModule(object):
         self.commission_start_attempts = 0
         self.region = {
             'left_menu': Region(0, 203, 57, 86),
-            'collect_oil': Region(206, 105, 98, 58),
-            'collect_gold': Region(579, 102, 98, 58),
+            'collect_oil': Region(140, 105, 100, 40),
+            'collect_gold': Region(390, 102, 98, 58),
+            'collect_exp': Region(650, 102, 98, 58),
             'complete_commission': Region(574, 393, 181, 61),
             'button_go': Region(574, 393, 181, 61),
             'urgent_tab': Region(24, 327, 108, 103),
@@ -47,6 +48,7 @@ class CommissionModule(object):
         Utils.script_sleep(1)
         Utils.touch_randomly(self.region["collect_oil"])
         Utils.touch_randomly(self.region["collect_gold"])
+        Utils.touch_randomly(self.region["collect_exp"])
 
         self.attempts_count = 0
 
