@@ -118,6 +118,8 @@ class EventModule(object):
             if Utils.find("combat/menu_formation"):
                 Logger.log_debug("Found formation asset.")
                 return True
+            else :
+                Utils.touch_randomly(self.region[f'{event.lower()}_hard'])
 
     def combat_handler(self):
         Logger.log_msg("Starting combat.")
@@ -159,3 +161,6 @@ class EventModule(object):
                 Utils.touch_randomly(self.region['dismiss_combat_finished'])
                 Utils.script_sleep(1)
                 continue
+            else :
+                Utils.touch_randomly(self.region['menu_combat_start'])
+                Utils.script_sleep(4)

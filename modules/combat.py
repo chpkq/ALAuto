@@ -87,6 +87,7 @@ class CombatModule(object):
             'leave_auto_search': Region(580, 910, 150, 50),
             'clear_submarine_fleet_button': Region(1680, 690, 50, 50),
             'clear_submarine_fleet_confirm_button': Region(1250, 750, 50, 50),
+            'leave_support_election_event': Region(620, 730, 200, 70),
         }
 
         self.prohibited_region = {
@@ -220,6 +221,8 @@ class CombatModule(object):
             if Utils.find("menu/button_confirm"):
                 Logger.log_msg("Found disconnection message.")
                 Utils.touch_randomly(self.region["disconnection_confirm"])
+            if Utils.find("menu/alert_info_event"):
+                Utils.touch_randomly(self.region["leave_support_election_event"])
 
     def reach_map(self):
         """
