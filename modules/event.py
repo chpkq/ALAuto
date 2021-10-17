@@ -105,6 +105,7 @@ class EventModule(object):
     def pre_combat_handler(self):
         """Handles pre-combat stuff like fleet selection and starts combat_handler function.
         """
+        event = self.config.events['name']
         while True:
             Utils.wait_update_screen(1)
 
