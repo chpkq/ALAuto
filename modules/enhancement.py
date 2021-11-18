@@ -178,7 +178,7 @@ class EnhancementModule(object):
                 self.fill_count += 1
                 #taps the "fill" button
                 Utils.touch_randomly(self.region['fill_button'])
-                Utils.update_screen()
+                Utils.wait_update_screen(1)
             if Utils.find("enhancement/alert_no_items", 0.85) or self.fill_count >= 10:
                 Logger.log_warning("Not enough ships to enhance.")
                 break
