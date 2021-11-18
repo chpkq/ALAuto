@@ -424,7 +424,7 @@ class Utils(object):
                 oil.append(_res)
 
         last_ocr = max(set(oil), key=oil.count)
-        Logger.log_debug("Current oil: " + str(last_ocr))
+        Logger.log_msg("Current oil: " + str(last_ocr))
 
         if limit > last_ocr:
             Logger.log_error("Oil below limit: " + str(last_ocr))
