@@ -211,7 +211,7 @@ class CombatModule(object):
         Logger.log_msg("Started map clear with auto search mode.")
 
         while True:
-            Utils.wait_update_screen(5)
+            Utils.wait_update_screen(10)
 
             if Utils.find("combat/menu_total_rewards") or Utils.find('maps/map_{}'.format(self.chapter_map)):
                 Utils.touch_randomly(self.region["leave_auto_search"])
