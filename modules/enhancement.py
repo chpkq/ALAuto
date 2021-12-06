@@ -126,12 +126,12 @@ class EnhancementModule(object):
             Utils.script_sleep(2)
             # Touch the All button to clear any current filter
             Utils.touch_randomly(self.region['rarity_all_ship_filter'])
-            Utils.script_sleep(0.5)
+            Utils.script_sleep(2)
             Utils.touch_randomly(self.region['extra_all_ship_filter'])
-            Utils.script_sleep(0.5)
+            Utils.script_sleep(2)
             # Touch the Enhanceable button
             Utils.touch_randomly(self.region['extra_enhanceable_ship_filter'])
-            Utils.script_sleep(0.5)
+            Utils.script_sleep(2)
             
             # check if correct options are enabled
             # get the regions of enabled options
@@ -157,7 +157,7 @@ class EnhancementModule(object):
                     Logger.log_debug("Enhancement: Sorting options confirmed")
                     self.sorted = True
             Utils.touch_randomly(self.region['confirm_filter_button'])
-            Utils.script_sleep(1)
+            Utils.script_sleep(2)
 
     def enhance_ship(self):
         """
